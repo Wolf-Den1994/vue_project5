@@ -2,7 +2,7 @@
   <div class="container">
     <form class="card" @submit.prevent="submitHandler">
       <h1>Анкета на Vue разработчика!</h1>
-      <div class="form-control">
+      <div class="form-control" :class="{invalid: errors.name}">
         <label for="name">Как тебя зовут?</label>
         <input
           type="text"
@@ -10,6 +10,7 @@
           placeholder="Введи имя"
           v-model.trim="name"
         >
+        <small v-if="errors.name">{{ errors.name }}</small>
       </div>
 
       <div class="form-control">
@@ -76,26 +77,46 @@
         name: '',
         age: 23,
         city: 'nsk',
-        relocate: null,
+        relocate: 'yes',
         skills: [],
-        agree: false
+        agree: false,
+        errors: {
+          name: null
+        }
       }
     },
     methods: {
+      formIsValid() {
+        if (!this.name.length) {
+          this.errors.name = 'Имя не может быть пустым'
+          return false
+        } else {
+          this.errors.name = null
+        }
+        return true
+      },
       submitHandler() {
-        console.group('FORM DATA')
-        console.log('name', this.name)
-        console.log('age', this.age)
-        console.log('city', this.city)
-        console.log('relocate', this.relocate)
-        console.log('skills', this.skills)
-        console.log('agree', this.agree)
-        console.groupEnd()
+        if (this.formIsValid()) {
+          console.group('FORM DATA')
+          console.log('name', this.name)
+          console.log('age', this.age)
+          console.log('city', this.city)
+          console.log('relocate', this.relocate)
+          console.log('skills', this.skills)
+          console.log('agree', this.agree)
+          console.groupEnd()
+        }
       }
     }
   }
 </script>
 
 <style>
+  .form-control small {
+    color: #e53935;
+  }
 
+  .form-control.invalid input {
+    border-color: #e53935;
+  }
 </style>
