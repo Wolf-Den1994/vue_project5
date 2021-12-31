@@ -4,12 +4,22 @@
       <h1>Анкета на Vue разработчика!</h1>
       <div class="form-control">
         <label for="name">Как тебя зовут?</label>
-        <input type="text" id="name" placeholder="Введи имя">
+        <input
+          type="text"
+          id="name"
+          placeholder="Введи имя"
+          v-model.trim="name"
+        >
       </div>
 
       <div class="form-control">
         <label for="age">Выбери возраст</label>
-        <input type="number" id="age" value="20">
+        <input
+          type="number"
+          id="age"
+          max="999"
+          v-model.number="age"
+        >
       </div>
 
       <div class="form-control">
@@ -54,9 +64,18 @@
 
 <script>
   export default {
+    data() {
+      return {
+        name: '',
+        age: 23,
+      }
+    },
     methods: {
-      submitHandler(event) {
-
+      submitHandler() {
+        console.group('FORM DATA')
+        console.log('name', this.name)
+        console.log('age', this.age)
+        console.groupEnd()
       }
     }
   }
