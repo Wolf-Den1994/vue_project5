@@ -24,7 +24,7 @@
 
       <div class="form-control">
         <label for="city">Твой город</label>
-        <select id="city">
+        <select id="city" v-model="city">
           <option value="spb">Санкт-Петербург</option>
           <option value="msk">Москва</option>
           <option value="kzn">Казань</option>
@@ -68,6 +68,7 @@
       return {
         name: '',
         age: 23,
+        city: 'nsk'
       }
     },
     methods: {
@@ -75,6 +76,7 @@
         console.group('FORM DATA')
         console.log('name', this.name)
         console.log('age', this.age)
+        console.log('city', this.city)
         console.groupEnd()
       }
     }
